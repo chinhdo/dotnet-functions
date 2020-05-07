@@ -26,6 +26,19 @@ namespace ChinhDo.Functions.Tests
 
             Assert.AreEqual(table.Rows.Count, 2);
         }
+
+        [TestMethod]
+        public void GetBreakListIntoChunks()
+        {
+            List<Person> persons = new List<Person>();
+            for (int i = 0; i < 1000; i++)
+            {
+                persons.Add(new Person() { FirstName = "John", LastName = "Smith", Created = DateTime.Now });
+            }
+            List<List<Person>> chunks = DataUtils.BreakIntoChunks(persons, 100);
+            Assert.AreEqual(10, chunks.Count);
+            Assert.AreEqual(100, chunks[0].Count);
+        }
     }
 
     public class Person
